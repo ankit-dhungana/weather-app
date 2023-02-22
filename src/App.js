@@ -3,28 +3,63 @@
 import { useEffect, useState } from "react";
 import Descriptions from "./components/Descriptions";
 import { getWeatherData } from "./weatherService";
+// import Wallpaper from "./components/Wallpaper";
+// import { getRandomWallpaper } from "./wallpaper";
 
 function App() {
+  const [city, setCity] = useState("Winnipeg");
   const [weatherData, setWeatherData] = useState(null);
   const [units, setUnits] = useState("metric");
+  // const [wallpaperUrl, setWallpaperUrl] = useState(null);
 
   useEffect(() => {
     const fetchweatherData = async () => {
-      const data = await getWeatherData("Chitawan", units);
+      const data = await getWeatherData(city, units);
       setWeatherData(data);
     };
 
     fetchweatherData();
-  }, []);
+  }, [units, city]);
+
+  // useEffect(() => {
+  //   async function fetchWallpaper() {
+  //     const url = await getRandomWallpaper();
+  //     setWallpaperUrl(url);
+  //   }
+  //   fetchWallpaper();
+  // }, [wallpaperUrl]);
+
+  const handelUnitsClick = (e) => {
+    const button = e.currentTarget;
+    const activeUnit = button.innerText.slice(1);
+
+    const isCelsius = activeUnit === "C";
+    button.innerText = isCelsius ? "°F" : "°C";
+    setUnits(isCelsius ? "metric" : "imperial");
+  };
+
+  const keyPressed = (e) => {
+    if (e.keyCode === 13) {
+      setCity(e.currentTarget.value);
+      e.currentTarget.blur();
+    }
+  };
 
   return (
     <div className="app">
+      {/* style={{ backgroundImage: `url(${wallpaperUrl})` }} */}
+      {/* <Wallpaper></Wallpaper> */}
       <div className="overlay">
         {weatherData && (
           <div className="container">
             <div className="section section__inputs">
-              <input type="text" name="city" placeholder="Enter City" />
-              <button>&#176;F</button>
+              <input
+                onKeyDown={keyPressed}
+                type="text"
+                name="city"
+                placeholder="Enter City"
+              />
+              <button onClick={(e) => handelUnitsClick(e)}>&#176;F</button>{" "}
             </div>
             <div className="section section__temperature">
               <div className="icon">
@@ -32,7 +67,6 @@ function App() {
                 <img src={weatherData.iconURL} alt="weather icon" />
                 <h3>{weatherData.description}</h3>
               </div>
-
               <div className="temperature">
                 <h1>
                   {" "}
