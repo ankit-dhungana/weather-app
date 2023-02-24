@@ -5,10 +5,10 @@ const getRandomWallpaper = async () => {
   const data = await fetch(URL)
     .then((response) => response.json())
     .then((data) => data);
-
   const {
     urls: { regular },
   } = data;
+
   return regular;
 };
 

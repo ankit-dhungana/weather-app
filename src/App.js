@@ -4,13 +4,13 @@ import { useEffect, useState } from "react";
 import Descriptions from "./components/Descriptions";
 import { getWeatherData } from "./weatherService";
 // import Wallpaper from "./components/Wallpaper";
-// import { getRandomWallpaper } from "./wallpaper";
+import { getRandomWallpaper } from "./wallpaper";
 
 function App() {
   const [city, setCity] = useState("Winnipeg");
   const [weatherData, setWeatherData] = useState(null);
   const [units, setUnits] = useState("metric");
-  // const [wallpaperUrl, setWallpaperUrl] = useState(null);
+  const [wallpaperUrl, setWallpaperUrl] = useState(null);
 
   useEffect(() => {
     const fetchweatherData = async () => {
@@ -21,13 +21,15 @@ function App() {
     fetchweatherData();
   }, [units, city]);
 
-  // useEffect(() => {
-  //   async function fetchWallpaper() {
-  //     const url = await getRandomWallpaper();
-  //     setWallpaperUrl(url);
-  //   }
-  //   fetchWallpaper();
-  // }, [wallpaperUrl]);
+  // useeffect method that will fetch 1 random wallpaper from unsplash
+  useEffect(() => {
+    const fetchWallpaper = async () => {
+      const data = await getRandomWallpaper();
+      setWallpaperUrl(data);
+    };
+
+    fetchWallpaper();
+  }, []);
 
   const handelUnitsClick = (e) => {
     const button = e.currentTarget;
@@ -46,7 +48,7 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <div className="app" style={{ backgroundImage: `url(${wallpaperUrl})` }}>
       {/* style={{ backgroundImage: `url(${wallpaperUrl})` }} */}
       {/* <Wallpaper></Wallpaper> */}
       <div className="overlay">
