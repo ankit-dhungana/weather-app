@@ -1,9 +1,6 @@
-//import the images and use it here if needed
-
 import { useEffect, useState } from "react";
 import Descriptions from "./components/Descriptions";
 import { getWeatherData } from "./weatherService";
-// import Wallpaper from "./components/Wallpaper";
 import { getRandomWallpaper } from "./wallpaper";
 
 function App() {
@@ -21,7 +18,6 @@ function App() {
     fetchweatherData();
   }, [units, city]);
 
-  // useeffect method that will fetch 1 random wallpaper from unsplash
   useEffect(() => {
     const fetchWallpaper = async () => {
       const data = await getRandomWallpaper();
@@ -49,8 +45,6 @@ function App() {
 
   return (
     <div className="app" style={{ backgroundImage: `url(${wallpaperUrl})` }}>
-      {/* style={{ backgroundImage: `url(${wallpaperUrl})` }} */}
-      {/* <Wallpaper></Wallpaper> */}
       <div className="overlay">
         {weatherData && (
           <div className="container">

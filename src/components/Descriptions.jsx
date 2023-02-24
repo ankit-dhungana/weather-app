@@ -14,21 +14,21 @@ const Descriptions = ({ weather, units }) => {
       icon: <FaArrowDown />,
       title: "min",
       data: weather.temp_min.toFixed(),
-      unit: tempUnit,
+      unit: `\u00B0 ${tempUnit}`,
     },
     {
       id: 2,
       icon: <FaArrowUp />,
       title: "max",
       data: weather.temp_max.toFixed(),
-      unit: tempUnit,
+      unit: `\u00B0 ${tempUnit}`,
     },
     {
       id: 3,
       icon: <BiHappy />,
       title: "feels like",
       data: weather.feels_like.toFixed(),
-      unit: tempUnit,
+      unit: `\u00B0 ${tempUnit}`,
     },
     {
       id: 4,
@@ -61,7 +61,7 @@ const Descriptions = ({ weather, units }) => {
             {icon}
             <small>{title}</small>
           </div>
-          <h2>{`${data} \u00B0  ${unit}`}</h2>
+          <h2>{`${data}   ${unit}`}</h2>
         </div>
       ))}
     </div>
